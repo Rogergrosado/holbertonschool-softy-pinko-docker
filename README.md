@@ -84,6 +84,7 @@ services:
     depends_on:
       - front-end
       - back-end
+```
 
 ## How to Run the Project
 
