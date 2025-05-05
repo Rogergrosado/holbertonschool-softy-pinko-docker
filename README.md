@@ -85,6 +85,34 @@ services:
       - front-end
       - back-end
 
+## How to Run the Project
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/holbertonschool-softy-pinko-docker.git
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd holbertonschool-softy-pinko-docker
+    ```
+
+3. **Build and start the containers:**
+
+    ```bash
+    docker-compose up --build
+    ```
+
+4. **Open a browser and visit** [http://localhost](http://localhost) **to view the application.**
+
+---
+
+### Conclusion
+
+This project demonstrates how Docker can be used to manage a multi-container application, which includes a front-end, back-end, proxy server, and load balancing. The use of Docker Compose simplified the orchestration of these services, and the proxy server ensured that communication between them was seamless. By horizontally scaling the back-end, we ensured that the application could handle increased traffic efficiently.
+
+
 ### Summary of Key Points
 - **Tasks Overview:** The tasks progressively guide you through the steps of building the infrastructure for the application using Docker, including setting up the front-end, back-end, proxy server, load balancing, and scaling horizontally.
 - **Docker Compose:** The `docker-compose.yml` file orchestrates the multi-container setup, ensuring everything runs together seamlessly.
