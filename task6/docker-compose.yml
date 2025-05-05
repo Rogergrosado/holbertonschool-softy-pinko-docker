@@ -1,26 +1,34 @@
-version: '4 or 5'
+version: '3.3'
+
 services:
   back-end:
     build:
       context: ./back-end
       dockerfile: Dockerfile
-    image: softy-pinko-back-end:task4
+    image: softy-pinko-back-end:task6
+    deploy:
+      replicas: 2  # Scale the number of back-end containers to 2
+    ports:
+      - "5252" # Don't map ports to the host, just expose them internally
 
   front-end:
     build:
       context: ./front-end
       dockerfile: Dockerfile
-    image: softy-pinko-front-end:task4
+    image: softy-pinko-front-end:task6
     depends_on:
       - back-end
+    ports:
+      - "9000:9000"
 
   proxy:
     build:
       context: ./proxy
       dockerfile: Dockerfile
-    image: softy-pinko-proxy:task5
+    image: softy-pinko-proxy:task6
     ports:
       - "80:80"
     depends_on:
-      - back-end
       - front-end
+      - back-end
+

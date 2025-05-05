@@ -1,29 +1,30 @@
 # Use the latest version of Ubuntu as a parent image
 FROM ubuntu:latest
 
-# Update the package lists for upgrades for packages that need upgrading
-RUN apt-get update
+# Set environment variables to avoid interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Upgrade all the installed packages
-RUN apt-get upgrade -y
+# Update the package lists and install required dependencies in one step
+RUN apt-get update && apt-get upgrade -y && apt-get install -y python3 python3-pip python3-venv
 
-# Install Python3 and pip3
-RUN apt-get install -y python3 python3-pip
+# Create a virtual environment in /env
+RUN python3 -m venv /env
 
-# Install Flask using pip3
-RUN pip3 install flask
+# Set the virtual environment's bin directory to the PATH so we use pip from the virtual environment
+ENV PATH="/env/bin:$PATH"
 
-# Install Flask-Cors using pip3
-RUN pip3 install flask-cors
+# Install Flask and Flask-CORS using pip within the virtual environment
+RUN pip install flask flask-cors
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy only the necessary files for the backend to the container
+COPY ./api.py /app/api.py
 
-# Make port 5252 available to the world outside this container
+# Expose the port for the backend
 EXPOSE 5252
 
 # Run api.py when the container launches
-CMD ["python3", "api.py"]
+CMD ["python", "api.py"]
+
